@@ -1,4 +1,5 @@
-let pokemonList=[
+let pokemonRepository = (function(){
+  let pokemonList=[
     {
       name:"vileplume",
       height:1.2, 
@@ -14,18 +15,25 @@ let pokemonList=[
       height:1, 
       type:"water"
     }
-  ];
+  ]
 
-pokemonList.forEach(function(pokemon){
+ function getAll () {
+    return pokemonList;
+  }
+  function add (pokemon) {
+    pokemonList.push(pokemon);
+  }
+  return {
+    getAll: getAll,
+    add: add
+    }
+})()
+
+pokemonRepository.getAll().forEach(function(pokemon){
   document.write(pokemon.name+" "+"(height:"+pokemon.height+")");
   if(pokemon.height>1.0){
     document.write("-Wow, that's big! "+"<br>");
   } else{
     document.write(" "+"<br>");
   }
-});
-
-
-
-
-  
+})
