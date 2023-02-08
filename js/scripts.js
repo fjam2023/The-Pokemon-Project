@@ -18,8 +18,8 @@ function addListItem(pokemon){
   let listpokemon = document.createElement("li");
   
   let button = document.createElement("button");
-    button.addEventListener('click', function(showDetails){
-    console.log(showDetails);
+    button.addEventListener('click', function(event){
+    showDetails(pokemon);
   });
   
   button.innerText = pokemon.name;
