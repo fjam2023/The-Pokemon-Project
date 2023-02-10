@@ -1,6 +1,7 @@
 let pokemonRepository = (function () {
   let pokemonList = [];
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=10';
+
   //from previous exercises
   function add(pokemon) {
     pokemonList.push(pokemon);
@@ -38,11 +39,16 @@ let pokemonRepository = (function () {
       let titleElement = document.createElement('h1');
       titleElement.innerText = (item.name);
 
+      //for the image
+      let imageElement = document.createElement('img');
+      imageElement.setAttribute('src', item.imageUrl);
+
       let contentElement = document.createElement('p');
-      contentElement.innerText = ('Height: ' + item.height + '\n' + '\n' + 'Types: ' + item.types);
+      contentElement.innerText = ('Height: ' + item.height + '\n' + '\n' + 'Types: ' + item.types.map(t => t.type.name).join(', '));
 
       modal.appendChild(closeButtonElement);
       modal.appendChild(titleElement);
+      modal.appendChild(imageElement);
       modal.appendChild(contentElement);
       modalContainer.appendChild(modal);
 
