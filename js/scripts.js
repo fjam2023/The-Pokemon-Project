@@ -2,7 +2,6 @@ let pokemonRepository = (function () {
   let pokemonList = [];
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=10';
 
-  //from previous exercises
   function add(pokemon) {
     pokemonList.push(pokemon);
   }
@@ -10,75 +9,41 @@ let pokemonRepository = (function () {
     return pokemonList;
   }
   function addListItem(pokemon) {
-    let pokemonList = document.querySelector(".pokemon-list");
-    let listpokemon = document.createElement("li");
-    let button = document.createElement("button");
-    button.addEventListener('click', function (event) {
+    let pokemonList = $(".pokemon-list");
+    let listpokemon = $('<li class = "group-list-item"></li>');
+
+    let button = $(`<button type = "button" class = "button-class btn btn-primary" data-toggle = "modal" data-target = "#pokemonModalContainer">${pokemon.name}</button>`);
+    button.on("click", function (event) {
       showDetails(pokemon);
     });
-    button.innerText = pokemon.name;
-    button.classList.add("button-class");
-    listpokemon.appendChild(button);
-    pokemonList.appendChild(listpokemon);
+    listpokemon.append(button);
+    pokemonList.append(listpokemon);
   }
 
-  //the edited showDetails block includes MODAL now 
-  function showDetails(item) {
-    pokemonRepository.loadDetails(item).then(function () {
-      let modalContainer = document.querySelector('#modal-container');
-      modalContainer.innerHTML = '';
-
-      let modal = document.createElement('div');
-      modal.classList.add('modal');
-
-      let closeButtonElement = document.createElement('button');
-      closeButtonElement.classList.add('modal-close');
-      closeButtonElement.innerText = 'Close';
-      closeButtonElement.addEventListener('click', hideModal);
-
-      let titleElement = document.createElement('h1');
-      titleElement.innerText = (item.name);
-
-      //for the image
-      let imageElement = document.createElement('img');
-      imageElement.setAttribute('src', item.imageUrl);
-
-      let contentElement = document.createElement('p');
-      contentElement.innerText = ('Height: ' + item.height + '\n' + '\n' + 'Types: ' + item.types.map(t => t.type.name).join(', '));
-
-      modal.appendChild(closeButtonElement);
-      modal.appendChild(titleElement);
-      modal.appendChild(imageElement);
-      modal.appendChild(contentElement);
-      modalContainer.appendChild(modal);
-
-      modalContainer.classList.add('is-visible');
-
-
-      function hideModal() {
-        modalContainer.classList.remove('is-visible');
-      }
-
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-          hideModal();
-        }
-      });
-
-      modalContainer.addEventListener('click', (e) => {
-        let target = e.target;
-        if (target === modalContainer) {
-          hideModal();
-        }
-      });
-
-      document.querySelector('button.button-class').addEventListener('click', () => {
-        showDetails('Modal Title', 'Modal Content');
-      });
+  function showDetails(pokemon) {
+    loadDetails(pokemon).then(function () {
+      showDetailsModal(pokemon);
     });
   }
 
+  function showDetailsModal(pokemon) {
+    let types = "";
+    pokemon.types.forEach(function (type) {
+      types += type.type.name + " ";
+    });
 
+    let modalBody = $(".modal-body");
+    let modalTitle = $('.modal-title');
+
+    modalBody.empty();
+    modalTitle.empty();
+
+    modalTitle.append(pokemon.name);
+    modalBody.append(`<img class="modal-img" src="${pokemon.imageUrl}">`);
+    modalBody.append(`<p>Height: ${pokemon.height}</p>`);
+    modalBody.append(`<p>Weight: ${pokemon.weight}</p>`);
+    modalBody.append(`<p>Types: ${types}</p>`);
+  }
 
   function loadList() {
     return fetch(apiUrl).then(function (response) {
@@ -116,7 +81,8 @@ let pokemonRepository = (function () {
     addListItem: addListItem,
     showDetails: showDetails,
     loadList: loadList,
-    loadDetails: loadDetails
+    loadDetails: loadDetails,
+    showDetailsModal: showDetailsModal
   };
 })();
 
