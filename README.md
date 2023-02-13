@@ -8,7 +8,7 @@ Functionality: the application is designed to provide information to a user upon
 
 Technologies used: HTML, CSS, JavaScript
 
-Libraries used: Boostrap
+Libraries used: Boostrap, jQuery
 
 Extensions used:  ESLint, Prettier
 
