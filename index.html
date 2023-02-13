@@ -9,7 +9,17 @@
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+
+  <nav class="navbar navbar-light bg-success text-dark">
+    <a class="navbar-brand" href="#">POKEDEX Navigation</a>
+    <form class="form-inline">
+      <input id = "search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> 
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>
+  
   <ul class="pokemon-list list-group"></ul>
+
   <div class="modal fade" id="pokemonModalContainer" tabindex="-1" role="dialog"
     aria-labelledby="pokemonModalContainerLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

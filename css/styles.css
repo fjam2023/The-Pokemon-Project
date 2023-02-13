@@ -20,8 +20,15 @@
     display: block;  
   }
 
+  .btn-outline-success {
+    color: black;
+    border-color: black;
+}
+
   .modal-content{
     background-color: lightgreen;
     color: navy;
   }
+
+
 
