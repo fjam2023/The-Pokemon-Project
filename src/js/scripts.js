@@ -25,7 +25,6 @@ let pokemonRepository = (function () {
       showDetailsModal(pokemon);
     });
   }
-
   function showDetailsModal(pokemon) {
     let types = "";
     pokemon.types.forEach(function (type) {
@@ -88,9 +87,27 @@ let pokemonRepository = (function () {
 })();
 
 pokemonRepository.loadList().then(function () {
-  pokemonRepository.getAll().forEach(function (pokemon) {
+ pokemonRepository.getAll().forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
