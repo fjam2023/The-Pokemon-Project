@@ -2,13 +2,22 @@
 
 Name: pokedex
 
-Description: a small application that is built with HTML, CSS, and JavaScript and loads data from the external API that contains different pokemons and their characteristics such as name, height, and type.
+Description: this is an application built with HTML, CSS, and JavaScript that loads data from the external API containing different pokemons and their characteristics.
 
-Functionality: the application is designed to provide information to a user upon clicking a button with a pokemon's name on it. The window that pops up reveals the data about the pokemon of choice. 
+![page outlook](screenshots/Screenshot%201.png)
 
-Technologies used: HTML, CSS, JavaScript
+Features: modal, search bar
 
-Libraries used: Boostrap, jQuery
+![modal](screenshots/Screenshot%203.png)
+
+![search bar](screenshots/Screenshot%202.png)
+
+Links:
+[PokeAPI](https://pokeapi.co/api/v2/pokemon/?limit=150)
+
+[Live Page](https://fjam2023.github.io/the-pokemon-project/)
+
 
 Extensions used:  ESLint, Prettier
 
+Attribution for the page icon(the pokemon logo): [pokemon logo](https://www.freepnglogos.com/images/pokemon-logo-png-1446.html)
