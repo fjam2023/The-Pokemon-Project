@@ -1,17 +1,19 @@
 let pokemonRepository = (function () {
-  let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+  const pokemonList = [];
+  const inputField = document.querySelector('.search');
+  const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   function add(pokemon) {
     pokemonList.push(pokemon);
   }
+
   function getAll() {
     return pokemonList;
   }
+
   function addListItem(pokemon) {
     let pokemonList = $(".pokemon-list");
-    let listpokemon = $('<li class = "group-list-item"></li>');
-
+    let listpokemon = $('<li class = "group-list-item"></li>'); 
     let button = $(`<button type = "button" class = "button-class btn btn-primary" data-toggle = "modal" data-target = "#pokemonModalContainer">${pokemon.name}</button>`);
     button.on("click", function (event) {
       showDetails(pokemon);
@@ -25,6 +27,7 @@ let pokemonRepository = (function () {
       showDetailsModal(pokemon);
     });
   }
+
   function showDetailsModal(pokemon) {
     let types = "";
     pokemon.types.forEach(function (type) {
@@ -60,6 +63,7 @@ let pokemonRepository = (function () {
       console.error(e);
     })
   }
+
   function loadDetails(item) {
     let url = item.detailsUrl;
     return fetch(url).then(function (response) {
@@ -73,6 +77,51 @@ let pokemonRepository = (function () {
     }).catch(function (e) {
       console.error(e);
     });
+  }
+
+  function filterPokemon(query) {
+    return pokemonList.filter(function (pokemon) {
+     let pokemonLowerCase = pokemon.name.toLowerCase();
+     let queryLowerCase = query.toLowerCase();
+     return pokemonLowerCase.startsWith(queryLowerCase);
+    });
+  }
+
+ inputField.addEventListener('input', function () {
+    let query = inputField.value;
+    let filteredList = filterPokemon(query);
+    removeList();
+    if (filteredList.length === 0) {
+      showErrorMessage('OOPS! No Pokemon with that name.');
+    } else {
+      filteredList.forEach(addListItem);
+      clearErrorMessage();
+    }
+  });
+
+  function removeList(){
+    const pokemonListItem = document.getElementsByClassName('group-list-item');
+    while (pokemonListItem.length > 0){
+      pokemonListItem[0].parentNode.removeChild(pokemonListItem[0]);
+    }
+  }
+
+  function showErrorMessage(message) {
+    let errorMessage = document.createElement('p');
+    $(errorMessage).addClass('error-message');
+    $(errorMessage).addClass('col-5');
+    errorMessage.innerText = message;
+    const errorTextEl = document.getElementById('error-message');
+    if(errorTextEl){
+      errorTextEl.appendChild(errorMessage);
+    }
+  }
+
+  function clearErrorMessage(){
+    const errorMessages = document.getElementsByClassName('error-message');
+    while (errorMessages.length > 0){
+      errorMessages[0].parentNode.removeChild(errorMessages[0]);
+    }
   }
 
   return {
@@ -91,23 +140,3 @@ pokemonRepository.loadList().then(function () {
     pokemonRepository.addListItem(pokemon);
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
